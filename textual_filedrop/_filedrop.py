@@ -1,5 +1,4 @@
 import os
-import re
 
 from typing import List, Dict, Any
 
@@ -10,13 +9,13 @@ from textual._types import MessageTarget
 from textual import events
 
 from rich.console import RenderableType
+import shlex
 
 from ._icons import get_icon
 
 
 def _extract_filepaths(text: str) -> List[str]:
-    pattern = r'(?:[^\s"]|"(?:\\"|[^"])*")+'
-    split_filepaths = re.findall(pattern, text)
+    split_filepaths = shlex.split(text)
     filepaths = [
         i.replace("\x00", "").replace('"', "")
         for i in split_filepaths
